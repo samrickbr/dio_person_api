@@ -22,19 +22,29 @@ public class PessoaController {
         this.pessoaService = pessoaService;
     }
 
+    /* Cadastrar pessoa no DB */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MensagemRespostaDTO criarPessoa(@RequestBody @Valid PessoaDTO pessoaDTO) {
         return pessoaService.criarPessoa(pessoaDTO);
     }
 
+    /* Listar todas as pessoas cadastradas */
     @GetMapping
     public List<PessoaDTO> listarTodos() {
         return pessoaService.listarTodos();
     }
 
+    /* Buscar pessoa por ID */
     @GetMapping("/{id}")
     public PessoaDTO buscarID(@PathVariable Long id) throws PessoaNotFoundException {
         return PessoaService.buscarID(id);
+    }
+
+    /* Deletar pessoa por ID*/
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarID(@PathVariable Long id) throws PessoaNotFoundException {
+        pessoaService.deleteID(id);
     }
 }
