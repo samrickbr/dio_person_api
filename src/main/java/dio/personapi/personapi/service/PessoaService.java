@@ -16,22 +16,18 @@ import java.util.stream.Collectors;
 public class PessoaService {
 
     private static PessoaRepository pessoaRepository;
-
     private static final PessoaMapper pessoaMapper = PessoaMapper.INSTANCE;
 
     @Autowired
     public PessoaService(PessoaRepository pessoaRepository) {
-        this.pessoaRepository = pessoaRepository;
+        PessoaService.pessoaRepository = pessoaRepository;
     }
 
     /* Salvar a pessoa no DB  */
     public MensagemRespostaDTO criarPessoa(PessoaDTO pessoaDTO) {
         Pessoa pessoaParaSalvar = pessoaMapper.toModel(pessoaDTO);
-
         Pessoa pessoaSalva = pessoaRepository.save(pessoaParaSalvar);
-        return MensagemRespostaDTO.builder().mensagem("Pessoa salva com sucesso no ID "
-                        + pessoaSalva.getIdPessoa() + "!")
-                .build();
+        return createdMessageresponse(pessoaSalva.getIdPessoa(), "Pessoa salva com sucesso no ID ", "!");
     }
 
     /* Método para listar todas as pessoas no DB */
@@ -54,8 +50,23 @@ public class PessoaService {
         pessoaRepository.deleteById(id);
     }
 
+    /* Método para atualizar a pessoa por ID */
+    public MensagemRespostaDTO atualizarPorID(Long id, PessoaDTO pessoaDTO) throws PessoaNotFoundException {
+        verificaPessoaExiste(id);
+        Pessoa pessoaParaAtualizar = pessoaMapper.toModel(pessoaDTO);
+        Pessoa pessoaAtualizada = pessoaRepository.save(pessoaParaAtualizar);
+        return createdMessageresponse(pessoaAtualizada.getIdPessoa(), "Pessoa com ID ", " atualizada com sucesso!");
+    }
+
     /* Método para procurar pessoa por ID */
     private static Pessoa verificaPessoaExiste(Long id) throws PessoaNotFoundException {
         return pessoaRepository.findById(id).orElseThrow(() -> new PessoaNotFoundException(id));
+    }
+
+    /* Contrutor da mensagem para salvar e atualizar pessoa */
+    private MensagemRespostaDTO createdMessageresponse(Long id, String mensagem1, String mensagem2) {
+        return MensagemRespostaDTO.builder().mensagem(mensagem1 +
+                        id + mensagem2)
+                .build();
     }
 }

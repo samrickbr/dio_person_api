@@ -41,6 +41,12 @@ public class PessoaController {
         return PessoaService.buscarID(id);
     }
 
+    /* Atualizar Pessoa por ID */
+    @PutMapping("/{id}")
+    public MensagemRespostaDTO atualizarPorID(@PathVariable Long id, @RequestBody PessoaDTO pessoaDTO) throws PessoaNotFoundException {
+        return pessoaService.atualizarPorID(id, pessoaDTO);
+    }
+
     /* Deletar pessoa por ID*/
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
