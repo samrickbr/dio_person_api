@@ -1,5 +1,6 @@
 HELP.md
 target/
+src/main/java/dio/personapi/personapi/repository/tools.txt
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
