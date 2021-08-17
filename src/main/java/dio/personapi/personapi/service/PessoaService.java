@@ -8,6 +8,9 @@ import dio.personapi.personapi.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PessoaService {
 
@@ -27,6 +30,12 @@ public class PessoaService {
         return MensagemRespostaDTO.builder().mensagem("Pessoa salva com sucesso no ID "
                         + pessoaSalva.getIdPessoa() + "!")
                 .build();
+    }
 
+    public List<PessoaDTO> listarTodos() {
+        List<Pessoa> todasPessoas = pessoaRepository.findAll();
+        return todasPessoas.stream()
+                .map(pessoaMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

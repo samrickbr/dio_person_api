@@ -1,8 +1,5 @@
 package dio.personapi.personapi.dto.request;
 
-import dio.personapi.personapi.entity.Email;
-import dio.personapi.personapi.entity.Endereco;
-import dio.personapi.personapi.entity.Telefone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,13 +27,16 @@ public class PessoaDTO {
     @CPF
     private String documento;
 
+    @NotEmpty
     private String dataNascimento;
 
-    private List<Endereco> endereços;
+    @Valid
+    private List<EnderecoDTO> endereco;
 
     @Valid
     @NotEmpty
-    private List<Telefone> telefones;
+    private List<TelefoneDTO> telefone;
 
-    private List<Email> emails;
+    @Valid
+    private List<EmailDTO> email;
 }

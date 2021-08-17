@@ -11,5 +11,5 @@ public enum EnderecoTipo {
     COMERCIAL_END("Comercial_end"),
     OUTRO_END("Outro_end");
 
-    private final String descricao_end;
+    private final String descricaoEndereco;
 }
