@@ -1,6 +1,5 @@
 package dio.personapi.personapi.entity;
 
-import dio.personapi.personapi.enums.PessoaTipo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +22,6 @@ public class Pessoa {
 
     @Column(nullable = false) /* define o campo como obrigatório*/
     private String nomePessoa;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private PessoaTipo pessoaTipo;
 
     @Column(nullable = false, unique = true) /* Além de obrigatório, define o campo como valor único*/
     private String documento;
